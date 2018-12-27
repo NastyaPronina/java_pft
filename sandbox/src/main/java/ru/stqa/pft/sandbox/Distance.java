@@ -8,7 +8,5 @@ public class Distance {
 
     System.out.println("Расстояние между двумя точкам p1 и p2 c координатами: " + p1.x + "," + p1.y + "; " + p2.x + "," + p2.y +
             " соответственно, равно = " + p1.distance(p2));
-  }
-
-
-  }
+    }
+}
