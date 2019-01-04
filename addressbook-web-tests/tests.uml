@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="261.0" y="393.0">ru.stqa.pft.addressbook.GroupCreationTests</node>
+    <node x="0.0" y="393.0">ru.stqa.pft.addressbook.GroupDeletionTests</node>
+    <node x="110.0" y="0.0">ru.stqa.pft.addressbook.TestBase</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="ru.stqa.pft.addressbook.GroupCreationTests" target="ru.stqa.pft.addressbook.TestBase">
+      <point x="-60.25" y="-27.5" />
+      <point x="321.25" y="368.0" />
+      <point x="286.25" y="368.0" />
+      <point x="35.25" y="171.5" />
+    </edge>
+    <edge source="ru.stqa.pft.addressbook.GroupDeletionTests" target="ru.stqa.pft.addressbook.TestBase">
+      <point x="60.25" y="-27.5" />
+      <point x="180.75" y="368.0" />
+      <point x="215.75" y="368.0" />
+      <point x="-35.25" y="171.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="0.0" y="0.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
