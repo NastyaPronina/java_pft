@@ -35,9 +35,7 @@ public class ApplicationManager {
     wd.findElement(By.linkText("Logout")).click();
   }
 
-  public GroupHelper getGroupHelper() {
-    return groupHelper;
-  }
+  public GroupHelper getGroupHelper() { return groupHelper; }
 
   public NavigationHelper getNavigationHelper() {
     return navigationHelper;

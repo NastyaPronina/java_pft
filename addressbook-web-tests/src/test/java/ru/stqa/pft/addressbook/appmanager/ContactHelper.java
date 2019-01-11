@@ -10,10 +10,6 @@ public class ContactHelper extends HelperBase {
     super(wd);
   }
 
-  public void returnToHomePage() {
-    wd.findElement(By.linkText("home page")).click();
-  }
-
   public void submitContactCreation() {
     wd.findElement(By.xpath("(//input[@name='submit'])[2]")).click();
   }
@@ -27,5 +23,21 @@ public class ContactHelper extends HelperBase {
     type(By.name("mobile"), contactData.getMobileTelephone());
     type(By.name("work"), contactData.getWorkTelephone());
     type(By.name("email"), contactData.getEmail());
+  }
+
+  public void selectContact() {
+    click(By.name("selected[]"));
+  }
+
+  public void deleteSelectedContact() {
+    click(By.xpath("//input[@value='Delete']"));
+  }
+
+  public void confirmContactDeletion () {
+    wd.switchTo().alert().accept();
+  }
+
+  public void returnToHomePage() {
+    click(By.linkText("home"));
   }
 }
