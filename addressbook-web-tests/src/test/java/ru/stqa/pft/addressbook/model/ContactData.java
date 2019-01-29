@@ -1,5 +1,7 @@
 package ru.stqa.pft.addressbook.model;
 
+import java.util.Objects;
+
 public class ContactData {
   private final String firstName;
   private final String middleName;
@@ -57,5 +59,40 @@ public class ContactData {
 
   public String getGroup() {
     return group;
+  }
+
+  @Override
+  public String toString() {
+    return "ContactData{" +
+            "firstName='" + firstName + '\'' +
+            ", middleName='" + middleName + '\'' +
+            ", lastName='" + lastName + '\'' +
+            ", address='" + address + '\'' +
+            ", homeTelephone='" + homeTelephone + '\'' +
+            ", mobileTelephone='" + mobileTelephone + '\'' +
+            ", workTelephone='" + workTelephone + '\'' +
+            ", email='" + email + '\'' +
+            '}';
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ContactData that = (ContactData) o;
+    return Objects.equals(firstName, that.firstName) &&
+            Objects.equals(middleName, that.middleName) &&
+            Objects.equals(lastName, that.lastName) &&
+            Objects.equals(address, that.address) &&
+            Objects.equals(homeTelephone, that.homeTelephone) &&
+            Objects.equals(mobileTelephone, that.mobileTelephone) &&
+            Objects.equals(workTelephone, that.workTelephone) &&
+            Objects.equals(email, that.email);
+  }
+
+  @Override
+  public int hashCode() {
+
+    return Objects.hash(firstName, middleName, lastName, address, homeTelephone, mobileTelephone, workTelephone, email);
   }
 }
