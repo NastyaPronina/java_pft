@@ -3,6 +3,7 @@ package ru.stqa.pft.addressbook.model;
 import java.util.Objects;
 
 public class ContactData {
+  private final String id;
   private final String firstName;
   private final String middleName;
   private final String lastName;
@@ -13,7 +14,8 @@ public class ContactData {
   private final String workTelephone;
   private final String email;
 
-  public ContactData(String firstName, String middleName, String lastName, String group, String address, String homeTelephone, String mobileTelephone, String workTelephone, String email) {
+  public ContactData(String id, String firstName, String middleName, String lastName, String group, String address, String homeTelephone, String mobileTelephone, String workTelephone, String email) {
+    this.id = id;
     this.firstName = firstName;
     this.middleName = middleName;
     this.lastName = lastName;
@@ -24,6 +26,21 @@ public class ContactData {
     this.workTelephone = workTelephone;
     this.email = email;
   }
+
+  public ContactData(String firstName, String middleName, String lastName, String group, String address, String homeTelephone, String mobileTelephone, String workTelephone, String email) {
+    this.id = null;
+    this.firstName = firstName;
+    this.middleName = middleName;
+    this.lastName = lastName;
+    this.group = group;
+    this.address = address;
+    this.homeTelephone = homeTelephone;
+    this.mobileTelephone = mobileTelephone;
+    this.workTelephone = workTelephone;
+    this.email = email;
+  }
+
+  public String getId() { return id; }
 
   public String getFirstName() {
     return firstName;
@@ -64,7 +81,8 @@ public class ContactData {
   @Override
   public String toString() {
     return "ContactData{" +
-            "firstName='" + firstName + '\'' +
+            "id='" + id + '\'' +
+            ", firstName='" + firstName + '\'' +
             ", middleName='" + middleName + '\'' +
             ", lastName='" + lastName + '\'' +
             ", address='" + address + '\'' +
@@ -80,7 +98,8 @@ public class ContactData {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ContactData that = (ContactData) o;
-    return Objects.equals(firstName, that.firstName) &&
+    return Objects.equals(id, that.id) &&
+            Objects.equals(firstName, that.firstName) &&
             Objects.equals(middleName, that.middleName) &&
             Objects.equals(lastName, that.lastName) &&
             Objects.equals(address, that.address) &&
@@ -93,6 +112,6 @@ public class ContactData {
   @Override
   public int hashCode() {
 
-    return Objects.hash(firstName, middleName, lastName, address, homeTelephone, mobileTelephone, workTelephone, email);
+    return Objects.hash(id, firstName, middleName, lastName, address, homeTelephone, mobileTelephone, workTelephone, email);
   }
 }
