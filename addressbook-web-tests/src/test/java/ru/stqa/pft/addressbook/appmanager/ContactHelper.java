@@ -41,6 +41,10 @@ public class ContactHelper extends HelperBase {
     wd.findElements(By.name("selected[]")).get(index).click();
   }
 
+  public void initContactModification (int index) {
+    wd.findElements(By.xpath("//*[@src='icons/pencil.png']")).get(index).click();
+  }
+
   public void deleteSelectedContact() {
     click(By.xpath("//input[@value='Delete']"));
   }
@@ -51,10 +55,6 @@ public class ContactHelper extends HelperBase {
 
   public void returnToHomePage() {
     click(By.linkText("home"));
-  }
-
-  public void initContactModification (int index) {
-    wd.findElements(By.xpath("//img[@alt='Edit']")).get(index).click();
   }
 
   public void updateContactModification() {
