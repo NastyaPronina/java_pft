@@ -53,8 +53,8 @@ public class ContactHelper extends HelperBase {
     click(By.linkText("home"));
   }
 
-  public void initContactModification () {
-    click(By.xpath("//img[@alt='Edit']"));
+  public void initContactModification (int index) {
+    wd.findElements(By.xpath("//img[@alt='Edit']")).get(index).click();
   }
 
   public void updateContactModification() {
@@ -75,9 +75,11 @@ public class ContactHelper extends HelperBase {
     List<ContactData> contacts = new ArrayList<ContactData>();
     List<WebElement> elements = wd.findElements(By.xpath("//tr[@name='entry']"));
     for (WebElement element : elements) {
+      List<WebElement> cells = element.findElements(By.xpath("//td"));
+      String firstName = cells.get(2).getText();
       String name = element.findElement(By.xpath("//td[3]")).getText();
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-      ContactData contact = new ContactData(id, name, "Trish", "Yessular", null,
+      ContactData contact = new ContactData(id, firstName, "Trish", "Yessular", null,
               "Huston", "55555", "77777", "99999", "helen@mail.com");
       contacts.add(contact);
     }
