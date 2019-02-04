@@ -14,12 +14,14 @@ public class ContactDeletionTests extends TestBase {
     app.goTo().homePage();
     if (app.contact().list().size() == 0) {
       app.goTo().addNewContactPage();
-      app.contact().create(new ContactData("Adam", "Trish", "Yessular", "test1", "Huston",
-          "55555", "77777", "99999", "helen@mail.com"));
+      app.contact().create(new ContactData().
+              withFirstName("Adam").withMiddleName("Trish").withLastName("Yessular").
+          withGroup("test1").withAddress("Huston").withHomeTelephone("55555").withMobileTelephone("77777").
+          withWorkTelephone("99999").withEmail("helen@mail.com"));
     }
   }
 
-  @Test (enabled = false)
+  @Test (enabled = true)
   public void testContactDeletion() throws Exception {
     List<ContactData> before = app.contact().list();
     int index = before.size() - 1;
