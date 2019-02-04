@@ -47,11 +47,11 @@ public class ApplicationManager {
     wd.findElement(By.linkText("Logout")).click();
   }
 
-  public GroupHelper getGroupHelper() { return groupHelper; }
+  public GroupHelper group() { return groupHelper; }
 
-  public NavigationHelper getNavigationHelper() {
+  public NavigationHelper goTo () {
     return navigationHelper;
   }
 
-  public ContactHelper getContactHelper() { return contactHelper; }
+  public ContactHelper contact() { return contactHelper; }
 }
