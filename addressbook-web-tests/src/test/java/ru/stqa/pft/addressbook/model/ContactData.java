@@ -123,19 +123,20 @@ public class ContactData {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ContactData that = (ContactData) o;
-    return Objects.equals(firstName, that.firstName) &&
-            Objects.equals(middleName, that.middleName) &&
-            Objects.equals(lastName, that.lastName) &&
-            Objects.equals(address, that.address) &&
-            Objects.equals(homeTelephone, that.homeTelephone) &&
-            Objects.equals(mobileTelephone, that.mobileTelephone) &&
-            Objects.equals(workTelephone, that.workTelephone) &&
-            Objects.equals(email, that.email);
+    return id == that.id &&
+        Objects.equals(firstName, that.firstName) &&
+        Objects.equals(middleName, that.middleName) &&
+        Objects.equals(lastName, that.lastName) &&
+        Objects.equals(address, that.address) &&
+        Objects.equals(homeTelephone, that.homeTelephone) &&
+        Objects.equals(mobileTelephone, that.mobileTelephone) &&
+        Objects.equals(workTelephone, that.workTelephone) &&
+        Objects.equals(email, that.email);
   }
 
   @Override
   public int hashCode() {
 
-    return Objects.hash(firstName, middleName, lastName, address, homeTelephone, mobileTelephone, workTelephone, email);
+    return Objects.hash(id, firstName, middleName, lastName, address, homeTelephone, mobileTelephone, workTelephone, email);
   }
 }
