@@ -106,16 +106,10 @@ public class ContactData {
   @Override
   public String toString() {
     return "ContactData{" +
-            "id='" + id + '\'' +
-            ", firstName='" + firstName + '\'' +
-            ", middleName='" + middleName + '\'' +
-            ", lastName='" + lastName + '\'' +
-            ", address='" + address + '\'' +
-            ", homeTelephone='" + homeTelephone + '\'' +
-            ", mobileTelephone='" + mobileTelephone + '\'' +
-            ", workTelephone='" + workTelephone + '\'' +
-            ", email='" + email + '\'' +
-            '}';
+        "id=" + id +
+        ", firstName='" + firstName + '\'' +
+        ", lastName='" + lastName + '\'' +
+        '}';
   }
 
   @Override
@@ -125,18 +119,12 @@ public class ContactData {
     ContactData that = (ContactData) o;
     return id == that.id &&
         Objects.equals(firstName, that.firstName) &&
-        Objects.equals(middleName, that.middleName) &&
-        Objects.equals(lastName, that.lastName) &&
-        Objects.equals(address, that.address) &&
-        Objects.equals(homeTelephone, that.homeTelephone) &&
-        Objects.equals(mobileTelephone, that.mobileTelephone) &&
-        Objects.equals(workTelephone, that.workTelephone) &&
-        Objects.equals(email, that.email);
+        Objects.equals(lastName, that.lastName);
   }
 
   @Override
   public int hashCode() {
 
-    return Objects.hash(id, firstName, middleName, lastName, address, homeTelephone, mobileTelephone, workTelephone, email);
+    return Objects.hash(id, firstName, lastName);
   }
 }
