@@ -43,8 +43,9 @@ public class ContactHelper extends HelperBase {
     wd.findElement(By.xpath("//input[@id='" + id + "']")).click();
   }
 
-  public void initContactModification (int index) {
-    wd.findElements(By.xpath("//*[@src='icons/pencil.png']")).get(index).click();
+  public void initContactModification (int id) {
+   // wd.findElements(By.xpath("//*[@src='icons/pencil.png']")).get(id).click();
+    click(By.xpath("//input[@id='" + id + "']/parent::td/following-sibling::td[7]"));
   }
 
   public void deleteSelectedContact() {
