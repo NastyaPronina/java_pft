@@ -8,9 +8,7 @@ import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class ContactHelper extends HelperBase {
 
@@ -67,6 +65,7 @@ public class ContactHelper extends HelperBase {
    public void create(ContactData contact) {
     fillContactForm(contact, true);
     submitContactCreation();
+    contactCache = null;
     returnToHomePage();
   }
 
@@ -75,6 +74,7 @@ public class ContactHelper extends HelperBase {
     initContactModification(contact.getId());
     fillContactForm(contact, false);
     updateContactModification();
+    contactCache = null;
     returnToHomePage();
   }
 
@@ -82,6 +82,7 @@ public class ContactHelper extends HelperBase {
     selectContactById(contact.getId());
     deleteSelectedContact();
     confirmContactDeletion();
+    contactCache = null;
     returnToHomePage();
   }
 
@@ -89,7 +90,13 @@ public class ContactHelper extends HelperBase {
     return isElementPresent(By.name("selected[]"));
   }
 
+  private Contacts contactCache = null;
+
   public Contacts all() {
+    if (contactCache != null) {
+      return new Contacts(contactCache);
+    }
+    contactCache = new Contacts();
     Contacts contacts = new Contacts();
     List<WebElement> elements = wd.findElements(By.xpath("//tr[@name='entry']"));
     for (WebElement element : elements) {
@@ -97,10 +104,10 @@ public class ContactHelper extends HelperBase {
       String firstName = cells.get(2).getText();
       String lastName = cells.get(1).getText();
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-      contacts.add(new ContactData().withId(id).withFirstName(firstName).withMiddleName(null).withLastName(lastName).
+      contactCache.add(new ContactData().withId(id).withFirstName(firstName).withMiddleName(null).withLastName(lastName).
           withAddress(null).withHomeTelephone(null).withMobileTelephone(null).withWorkTelephone(null).
           withEmail(null));
     }
-    return contacts;
+    return new Contacts(contactCache);
   }
 }
