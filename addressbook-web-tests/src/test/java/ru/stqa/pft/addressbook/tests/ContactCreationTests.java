@@ -25,15 +25,31 @@ public class ContactCreationTests extends TestBase {
   public void testContactCreation() {
     app.goTo().homePage();
     Contacts before = app.contact().all();
-    ContactData contact = new ContactData().withFirstName("Adam").withMiddleName("Trish").withLastName("Simpson").
-        withGroup("test1").withAddress("Huston").withHomeTelephone("55555").withMobileTelephone("77777").
-        withWorkTelephone("99999").withEmail("helen@mail.com");
+    ContactData contact = new ContactData().withFirstname("Adam").withLastname("Simpson").
+        withGroup("test1").withHomePhone("55555").withMobilePhone("77777").
+        withWorkPhone("99999");
     app.goTo().addNewContactPage();
     app.contact().create(contact);
+    assertThat(app.contact().count(), equalTo(before.size() + 1));
     Set<ContactData> after = app.contact().all();
-    assertThat(after.size(), equalTo(before.size() + 1));
 
     assertThat(after, equalTo(
         before.withAdded(contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
+  }
+
+  @Test (enabled = true)
+  public void testBadContactCreation() {
+    app.goTo().homePage();
+    Contacts before = app.contact().all();
+    ContactData contact = new ContactData().withFirstname("Adam'").withLastname("Simpson").
+        withGroup("test1").withHomePhone("55555").withMobilePhone("77777").
+        withWorkPhone("99999");
+    app.goTo().addNewContactPage();
+    app.contact().create(contact);
+    assertThat(app.contact().count(), equalTo(before.size()));
+    Set<ContactData> after = app.contact().all();
+
+
+    assertThat(after, equalTo(before));
   }
 }
