@@ -49,7 +49,6 @@ public class ContactCreationTests extends TestBase {
     assertThat(app.contact().count(), equalTo(before.size()));
     Set<ContactData> after = app.contact().all();
 
-
     assertThat(after, equalTo(before));
   }
 }
