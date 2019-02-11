@@ -9,22 +9,15 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class ContactAddressTests extends TestBase {
 
   @Test(enabled = true)
-  public void testContactEmails() {
+  public void testContactAddress() {
     app.goTo().homePage();
     ContactData contact = app.contact().all().iterator().next();
     ContactData contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
 
-    assertThat(contact.getAddress(), equalTo(contactInfoFromEditForm));
+    assertThat(contact.getAddress(), equalTo(cleaned(contactInfoFromEditForm.getAddress())));
   }
 
-//  private String mergeAddress(ContactData contact) {
-//    String[] addressParts = contact.getAddress().split(" ");
-//    return Arrays.asList(addressParts).stream().
-//        //.map(ContactAddressTests::cleaned);
-//  }
-//
-//  public static String cleaned(String email) {
-//    return email.replaceAll("\\s", "")
-//        //.replaceAll("[,]", "");
-//  }
+  public static String cleaned(String address) {
+    return address.replaceAll("\\s", "");
+  }
 }
