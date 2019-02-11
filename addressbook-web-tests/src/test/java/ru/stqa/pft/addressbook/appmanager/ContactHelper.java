@@ -14,6 +14,10 @@ import java.util.Set;
 
 public class ContactHelper extends HelperBase {
 
+  public void initContactCreation() {
+    click(By.xpath("//a[@href='edit.php']"));
+  }
+
   public ContactHelper(WebDriver wd) {
     super(wd);
   }
@@ -25,12 +29,12 @@ public class ContactHelper extends HelperBase {
   public void fillContactForm(ContactData contactData, boolean creation) {
     type(By.name("firstname"), contactData.getFirstname());
     type(By.name("lastname"), contactData.getLastname());
-    type(By.name("home"), contactData.getHomePhone());
-    type(By.name("mobile"), contactData.getMobilePhone());
-    type(By.name("work"), contactData.getWorkPhone());
+    attach(By.name("photo"), contactData.getPhoto());
 
     if (creation) {
-      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+      if(contactData.getGroup() != null) {
+        new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+      }
     } else {
       Assert.assertFalse(isElementPresent (By.name("new_group")));
     }
