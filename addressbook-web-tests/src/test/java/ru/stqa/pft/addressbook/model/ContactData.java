@@ -188,14 +188,19 @@ public class ContactData {
     this.workPhone = workPhone;
     return this;
   }
-
   @Override
   public String toString() {
     return "ContactData{" +
         "id=" + id +
         ", firstname='" + firstname + '\'' +
-        ", " +
-        "lastname='" + lastname + '\'' +
+        ", lastname='" + lastname + '\'' +
+        ", homePhone='" + homePhone + '\'' +
+        ", mobilePhone='" + mobilePhone + '\'' +
+        ", workPhone='" + workPhone + '\'' +
+        ", email1='" + email1 + '\'' +
+        ", email2='" + email2 + '\'' +
+        ", email3='" + email3 + '\'' +
+        ", address='" + address + '\'' +
         '}';
   }
 
@@ -221,6 +226,5 @@ public class ContactData {
 
     return Objects.hash(id, firstname, lastname, homePhone, mobilePhone, workPhone, email1, email2, email3, address);
   }
-
 
 }
