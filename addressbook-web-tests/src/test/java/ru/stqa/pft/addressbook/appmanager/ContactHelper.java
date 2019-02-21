@@ -119,10 +119,17 @@ public class ContactHelper extends HelperBase {
       String lastname = cells.get(1).getText();
       String allPhones = cells.get(5).getText();
       String allEmails = cells.get(4).getText();
+      String home = cells.get(5).getText().split("\n")[0];
+      String mobile = cells.get(5).getText().split("\n")[1];
+      String work = cells.get(5).getText().split("\n")[2];
+      String email1 = cells.get(4).getText().split("\n")[0];
+      String email2 = cells.get(4).getText().split("\n")[1];
+      String email3 = cells.get(4).getText().split("\n")[2];
       String address = cells.get(3).getText();
       int id = Integer.parseInt(cells.get(0).findElement(By.tagName("input")).getAttribute("value"));
       contactCache.add(new ContactData().withId(id).withFirstname(firstname).withLastname(lastname)
-          .withAllPhones(allPhones).withAllEmails(allEmails).withAddress(address));
+          .withHomePhone(home).withMobilePhone(mobile).withWorkPhone(work).withEmail1(email1)
+          .withEmail2(email2).withEmail3(email3).withAddress(address));
     }
     return new Contacts(contactCache);
   }

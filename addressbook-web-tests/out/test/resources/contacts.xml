@@ -1,7 +1,7 @@
 <list>
   <contact>
-    <firstname>Nick 0</firstname>
-    <lastname>Simpson 0</lastname>
+    <firstname>Nick0</firstname>
+    <lastname>Simpson0</lastname>
     <homePhone>11110</homePhone>
     <mobilePhone>22220</mobilePhone>
     <workPhone>33330</workPhone>
@@ -9,27 +9,5 @@
     <email2>0@mail.com</email2>
     <email3>0@mail.com</email3>
     <address>New York 0</address>
-  </contact>
-  <contact>
-    <firstname>Nick 1</firstname>
-    <lastname>Simpson 1</lastname>
-    <homePhone>11111</homePhone>
-    <mobilePhone>22221</mobilePhone>
-    <workPhone>33331</workPhone>
-    <email1>1@mail.com</email1>
-    <email2>1@mail.com</email2>
-    <email3>1@mail.com</email3>
-    <address>New York 1</address>
-  </contact>
-  <contact>
-    <firstname>Nick 2</firstname>
-    <lastname>Simpson 2</lastname>
-    <homePhone>11112</homePhone>
-    <mobilePhone>22222</mobilePhone>
-    <workPhone>33332</workPhone>
-    <email1>2@mail.com</email1>
-    <email2>2@mail.com</email2>
-    <email3>2@mail.com</email3>
-    <address>New York 2</address>
   </contact>
 </list>
