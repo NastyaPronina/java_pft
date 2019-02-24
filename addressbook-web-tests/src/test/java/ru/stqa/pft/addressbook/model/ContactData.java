@@ -6,7 +6,9 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.File;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @XStreamAlias("contact")
 @Entity
@@ -25,9 +27,6 @@ public class ContactData {
 
   @Column(name = "lastname")
   private String lastname;
-
-  @Transient
-  private String group;
 
   @Column(name = "home")
   @Type(type = "text")
@@ -66,6 +65,15 @@ public class ContactData {
   @Column(name = "photo")
   @Type(type = "text")
   private String photo;
+
+  @ManyToMany (fetch = FetchType.EAGER)
+  @JoinTable(name = "address_in_groups",
+      joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
+  private Set<GroupData> groups = new HashSet<GroupData>();
+
+  public Groups getGroups() {
+    return new Groups(groups);
+  }
 
   public File getPhoto() {
     return new File (photo);
@@ -155,15 +163,6 @@ public class ContactData {
     return this;
   }
 
-  public String getGroup() {
-    return group;
-  }
-
-  public ContactData withGroup(String group) {
-    this.group = group;
-    return this;
-  }
-
   public String getHomePhone() {
     return homePhone;
   }
@@ -187,21 +186,6 @@ public class ContactData {
   public ContactData withWorkPhone(String workPhone) {
     this.workPhone = workPhone;
     return this;
-  }
-  @Override
-  public String toString() {
-    return "ContactData{" +
-        "id=" + id +
-        ", firstname='" + firstname + '\'' +
-        ", lastname='" + lastname + '\'' +
-        ", homePhone='" + homePhone + '\'' +
-        ", mobilePhone='" + mobilePhone + '\'' +
-        ", workPhone='" + workPhone + '\'' +
-        ", email1='" + email1 + '\'' +
-        ", email2='" + email2 + '\'' +
-        ", email3='" + email3 + '\'' +
-        ", address='" + address + '\'' +
-        '}';
   }
 
   @Override
@@ -227,4 +211,24 @@ public class ContactData {
     return Objects.hash(id, firstname, lastname, homePhone, mobilePhone, workPhone, email1, email2, email3, address);
   }
 
+  @Override
+  public String toString() {
+    return "ContactData{" +
+        "id=" + id +
+        ", firstname='" + firstname + '\'' +
+        ", lastname='" + lastname + '\'' +
+        ", homePhone='" + homePhone + '\'' +
+        ", mobilePhone='" + mobilePhone + '\'' +
+        ", workPhone='" + workPhone + '\'' +
+        ", email1='" + email1 + '\'' +
+        ", email2='" + email2 + '\'' +
+        ", email3='" + email3 + '\'' +
+        ", address='" + address + '\'' +
+        '}';
+  }
+
+  public ContactData inGroup(GroupData group) {
+    groups.add(group);
+    return this;
+  }
 }

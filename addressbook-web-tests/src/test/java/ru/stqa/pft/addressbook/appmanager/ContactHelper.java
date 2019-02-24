@@ -38,8 +38,9 @@ public class ContactHelper extends HelperBase {
     type(By.name("work"), contactData.getWorkPhone());
 
     if (creation) {
-      if(contactData.getGroup() != null) {
-        new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+      if(contactData.getGroups().size() > 0) {
+        Assert.assertTrue(contactData.getGroups().size() == 1);
+        new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroups().iterator().next().getName());
       }
     } else {
       Assert.assertFalse(isElementPresent (By.name("new_group")));
@@ -51,12 +52,15 @@ public class ContactHelper extends HelperBase {
   }
 
   public void initContactModification (int id) {
-   // wd.findElements(By.xpath("//*[@src='icons/pencil.png']")).get(id).click();
     click(By.xpath("//input[@id='" + id + "']/parent::td/following-sibling::td[7]"));
   }
 
   public void deleteSelectedContact() {
     click(By.xpath("//input[@value='Delete']"));
+  }
+
+  public void deleteSelectedContactFromGroup() {
+    click(By.xpath("//input[contains(@value, 'Remove from')]"));
   }
 
   public void confirmContactDeletion () {
@@ -65,6 +69,10 @@ public class ContactHelper extends HelperBase {
 
   public void returnToHomePage() {
     click(By.linkText("home"));
+  }
+
+  public void returnToGroupPage() {
+    click(By.xpath("//a[contains(text(), 'group page')]"));
   }
 
   public void updateContactModification() {
@@ -95,8 +103,18 @@ public class ContactHelper extends HelperBase {
     returnToHomePage();
   }
 
+  public void deleteFromGroup(ContactData contact) {
+    selectContactById(contact.getId());
+    deleteSelectedContactFromGroup();
+    returnToGroupPage();
+  }
+
   public boolean isThereAContact () {
     return isElementPresent(By.name("selected[]"));
+  }
+
+  public boolean isThereTheContact (int id) {
+    return isElementPresent(By.xpath("//input[@id='" + id + "']"));
   }
 
   public int count() {
