@@ -48,4 +48,7 @@ public class ApplicationManager {
     wd.findElement(By.linkText("Logout")).click();
   }
 
+  public HttpSession newSession() {
+    return new HttpSession(this);
+  }
 }
