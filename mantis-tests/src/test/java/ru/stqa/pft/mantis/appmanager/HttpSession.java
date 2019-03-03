@@ -36,19 +36,9 @@ public class HttpSession {
     post.setEntity(new UrlEncodedFormEntity(params));
     CloseableHttpResponse response = httpclient.execute(post);
     String body = getTextFrom(response);
-    return body.contains(String.format("<a href=\"/account_page.php\">%s</a>", username));
+    //return body.contains(String.format("<a href=\"/account_page.php\">%s</a>", username));
+    return body.contains(String.format("<span class=\"italic\">%s</span>", username));
   }
-
-//  public boolean setLogin (String username) throws IOException {
-//    HttpPost post = new HttpPost(app.getProperty("web.baseUrl") + "login.php");
-//    List<NameValuePair> params = new ArrayList<>();
-//    params.add(new BasicNameValuePair("username", username));
-//    params.add(new BasicNameValuePair("return", "index.php"));
-//    post.setEntity(new UrlEncodedFormEntity(params));
-//    CloseableHttpResponse response = httpclient.execute(post);
-//    String body = getTextFrom(response);
-//    return body.contains(String.format("<input name =\"username\" value=%s>", username));
-//  }
 
   private String getTextFrom(CloseableHttpResponse response) throws IOException {
     try {
@@ -59,9 +49,9 @@ public class HttpSession {
   }
 
   public boolean isLoggedInAs (String username) throws IOException {
-    HttpGet get = new HttpGet (("web.baseUrl") + "/login.php");
+    HttpGet get = new HttpGet (app.getProperty("web.baseUrl") + "index.php");
     CloseableHttpResponse response = httpclient.execute(get);
     String body = getTextFrom(response);
-    return body.contains(String.format("<a href=\"/account_page.php\">%s</a>", username));
+    return body.contains(String.format("<span class=\"italic\">%s</span>", username));
   }
 }
