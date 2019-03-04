@@ -19,9 +19,6 @@ public class TestBase {
 
   @AfterSuite(alwaysRun = true)
   public void tearDown() {
-//    if (app.wd != null) {
     app.stop();
-//    }
   }
-
 }
