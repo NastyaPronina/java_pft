@@ -3,16 +3,22 @@ package ru.stqa.pft.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
+import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 public class ContactHelper extends HelperBase {
+
+  NavigationHelper navigationHelper = new NavigationHelper(wd);
+  GroupHelper groupHelper = new GroupHelper(wd);
 
   public void initContactCreation() {
     click(By.xpath("//a[@href='edit.php']"));
@@ -38,12 +44,12 @@ public class ContactHelper extends HelperBase {
     type(By.name("work"), contactData.getWorkPhone());
 
     if (creation) {
-      if(contactData.getGroups().size() > 0) {
+      if (contactData.getGroups().size() > 0) {
         Assert.assertTrue(contactData.getGroups().size() == 1);
         new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroups().iterator().next().getName());
       }
     } else {
-      Assert.assertFalse(isElementPresent (By.name("new_group")));
+      Assert.assertFalse(isElementPresent(By.name("new_group")));
     }
   }
 
@@ -51,7 +57,7 @@ public class ContactHelper extends HelperBase {
     wd.findElement(By.xpath("//input[@id='" + id + "']")).click();
   }
 
-  public void initContactModification (int id) {
+  public void initContactModification(int id) {
     click(By.xpath("//input[@id='" + id + "']/parent::td/following-sibling::td[7]"));
   }
 
@@ -63,7 +69,7 @@ public class ContactHelper extends HelperBase {
     click(By.xpath("//input[contains(@value, 'Remove from')]"));
   }
 
-  public void confirmContactDeletion () {
+  public void confirmContactDeletion() {
     wd.switchTo().alert().accept();
   }
 
@@ -79,7 +85,7 @@ public class ContactHelper extends HelperBase {
     click(By.xpath("//div[@id='content']/form/input[22]"));
   }
 
-   public void create(ContactData contact) {
+  public void create(ContactData contact) {
     fillContactForm(contact, true);
     submitContactCreation();
     contactCache = null;
@@ -109,24 +115,20 @@ public class ContactHelper extends HelperBase {
     returnToGroupPage();
   }
 
-  public boolean isThereAContact () {
-    return isElementPresent(By.name("selected[]"));
-  }
-
-  public boolean isThereTheContact (int id) {
+  public boolean isThereAContact(int id) {
     return isElementPresent(By.xpath("//input[@id='" + id + "']"));
   }
 
   public int count() {
     List<WebElement> elements = wd.findElements(By.xpath("//input[@name='selected[]']"));
-    return  elements.size();
+    return elements.size();
   }
 
   private Contacts contactCache = null;
 
   public Contacts all() {
-    if(contactCache != null) {
-      return  new Contacts(contactCache);
+    if (contactCache != null) {
+      return new Contacts(contactCache);
     }
     contactCache = new Contacts();
     Set<ContactData> contacts = new HashSet<ContactData>();
@@ -171,5 +173,18 @@ public class ContactHelper extends HelperBase {
 
   private void initContactModificationById(int id) {
     wd.findElement(By.xpath(String.format("//input[@value='%s']/../../td[8]/a", id))).click();
+  }
+
+  public void addToGroup(GroupData group, ContactData contact) {
+    navigationHelper.originalHomePage();
+    selectContactById(contact.getId());
+    groupHelper.toGroup(group.getId());
+    click(By.name("add"));
+  }
+
+  public void deleteContactInGroups(ContactData contact){
+    WebDriverWait wait = new WebDriverWait(wd,5);
+    wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input[value='"+contact.getId()+"']"))).click();
+    click(By.name("remove"));
   }
 }

@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
+import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
 
@@ -94,5 +95,15 @@ public class GroupHelper extends HelperBase {
       groupCache.add(new GroupData().withId(id).withName(name).withHeader(null).withFooter(null));
     }
     return new Groups(groupCache);
+  }
+
+  public void toGroup(int id){
+    Select value = new Select(wd.findElement(By.name("to_group")));
+    value.selectByValue(Integer.toString(id));
+  }
+
+  public void selectGroup(String groupName) {
+    Select group = new Select(wd.findElement(By.name("group")));
+    group.selectByVisibleText(groupName);
   }
 }

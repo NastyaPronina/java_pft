@@ -1,14 +1,14 @@
 package ru.stqa.pft.addressbook.tests;
 
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
-import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 
-public class ContactDeletionFromGroupTests extends TestBase {
+import static org.testng.Assert.assertTrue;
+
+public class ContactAdditionToGroup extends TestBase {
 
   @BeforeMethod
   public void ensurePreconditions () {
@@ -25,18 +25,18 @@ public class ContactDeletionFromGroupTests extends TestBase {
   }
 
   @Test
-  public void testContactDeletionFromGroup() {
+  public void testAdditionContactToGroup () {
+    app.goTo().homePage();
+    ContactData contact = app.db().contacts().iterator().next();
     Groups groups = app.db().groups();
-    GroupData modifiedGroup = groups.iterator().next();
-    Contacts contacts = app.db().contacts();
-    ContactData contact = contacts.iterator().next();
-    app.wd.get("http://localhost/addressbook/?group=" + modifiedGroup.getId());
-    if (! app.contact().isThereAContact(contact.getId())) {
-      app.contact().addToGroup(modifiedGroup, contact);
-      app.wd.get("http://localhost/addressbook/?group=" + modifiedGroup.getId());
+    GroupData group = groups.iterator().next();
+    String name = group.getName();
+    app.group().selectGroup(name);
+    if (app.contact().isThereAContact(contact.getId())){
+      app.contact().deleteContactInGroups(contact);
     }
-    app.contact().deleteFromGroup(contact);
-    app.wd.get("http://localhost/addressbook/?group=" + modifiedGroup.getId());
-    Assert.assertFalse(app.contact().isThereAContact(contact.getId()));
-    }
+    app.contact().addToGroup(group,contact);
+    app.wd.get("http://localhost/addressbook/?group=" + group.getId());
+    assertTrue(app.contact().isThereAContact(contact.getId()));
   }
+}
