@@ -59,4 +59,8 @@ public class HelperBase {
       return false;
     }
   }
+
+  public void goTo (String url) {
+    wd.get(url);
+  }
 }
