@@ -3,40 +3,34 @@ package ru.stqa.pft.mantis.appmanager;
 import org.openqa.selenium.By;
 import ru.stqa.pft.mantis.model.UserData;
 
-public class PasswordChangeHelper {
-
-  private HelperBase hb;
-  public PasswordChangeHelper(HelperBase hb) {
-    this.hb = hb;
-  }
-
-  public void enterPassword(String password) {
-    hb.type(By.name("password"), password);
-    hb.click(By.xpath("//*[@id=\"login-form\"]/fieldset/input[3]"));
-  }
-
-  public void enterLogin(String username) {
-    hb.type(By.name("username"), username);
-    hb.click(By.xpath("//*[@id=\"login-form\"]/fieldset/input[2]"));
+public class PasswordChangeHelper extends HelperBase {
+  public PasswordChangeHelper(ApplicationManager app) {
+    super(app);
   }
 
   public void goToUsersList() {
-    hb.click(By.xpath("//*[@id=\"sidebar\"]/ul/li[7]/a"));
-    hb.click(By.xpath("//*[@id=\"main-container\"]/div[2]/div[2]/div/ul/li[2]/a"));
+    click(By.xpath("//a[contains(text(), 'Manage Users')]"));
   }
 
-  public void selectUserFromTheList(UserData user) {
-    hb.click(By.xpath("//a[text()='" + user.getUsername() + "']"));
-    hb.click(By.xpath("//*[@id=\"manage-user-reset-form\"]/fieldset/span/input"));
+  public void chooseUser(UserData user){
+    click(By.linkText(user.getUsername()));
   }
 
-  public void getConfirmationLink(String confirmationLink) {
-    hb.goTo(confirmationLink);
+  public void resetPassword(){
+    wd.findElement(By.cssSelector("input[value='Reset Password']")).click();
   }
 
-  public void resetPassword(String password, String password_confirm) {
-    hb.type(By.name("password"), password);
-    hb.type(By.name("password_confirm"), password_confirm);
-    hb.click(By.xpath("//*[@id=\"account-update-form\"]/fieldset/span/button/span"));
+  public void confirmChangePassword(String resetPasswordLink, String password) {
+    wd.get(resetPasswordLink);
+    type(By.name("password"),password);
+    type(By.name("password_confirm"),password);
+    click(By.cssSelector("input[value='Update User']"));
   }
+
+  public void loginUi(String username, String password) {
+    wd.get(app.getProperty("web.baseUrl") + "/login_page.php");
+    type(By.name("username"),username);
+    type(By.name("password"),password);
+    click(By.cssSelector("input[type='submit']"));
+}
 }
