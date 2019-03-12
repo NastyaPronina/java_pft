@@ -38,4 +38,8 @@ public class NavigationHelper extends HelperBase {
   public void originalHomePage() {
     click(By.id("logo"));
   }
+
+  public void currentGroupPage(GroupData group) {
+    wd.get("http://localhost/addressbook/?group=" + group.getId());
+  }
 }

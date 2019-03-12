@@ -30,13 +30,13 @@ public class ContactDeletionFromGroupTests extends TestBase {
     GroupData modifiedGroup = groups.iterator().next();
     Contacts contacts = app.db().contacts();
     ContactData contact = contacts.iterator().next();
-    app.wd.get("http://localhost/addressbook/?group=" + modifiedGroup.getId());
+    app.goTo().currentGroupPage(modifiedGroup);
     if (! app.contact().isThereAContact(contact.getId())) {
       app.contact().addToGroup(modifiedGroup, contact);
       app.wd.get("http://localhost/addressbook/?group=" + modifiedGroup.getId());
     }
     app.contact().deleteFromGroup(contact);
-    app.wd.get("http://localhost/addressbook/?group=" + modifiedGroup.getId());
+    app.goTo().currentGroupPage(modifiedGroup);
     Assert.assertFalse(app.contact().isThereAContact(contact.getId()));
     }
   }

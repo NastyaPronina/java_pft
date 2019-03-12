@@ -36,7 +36,7 @@ public class ContactAdditionToGroup extends TestBase {
       app.contact().deleteContactInGroups(contact);
     }
     app.contact().addToGroup(group,contact);
-    app.wd.get("http://localhost/addressbook/?group=" + group.getId());
+    app.goTo().currentGroupPage(group);
     assertTrue(app.contact().isThereAContact(contact.getId()));
   }
 }
