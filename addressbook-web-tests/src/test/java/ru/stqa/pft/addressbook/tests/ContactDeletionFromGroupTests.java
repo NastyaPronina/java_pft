@@ -31,9 +31,9 @@ public class ContactDeletionFromGroupTests extends TestBase {
     Contacts contacts = app.db().contacts();
     ContactData contact = contacts.iterator().next();
     app.goTo().currentGroupPage(modifiedGroup);
-    if (! app.contact().isThereAContact(contact.getId())) {
+    if (!app.db().isThereAContact(contact.getId(), modifiedGroup)) {
       app.contact().addToGroup(modifiedGroup, contact);
-      app.wd.get("http://localhost/addressbook/?group=" + modifiedGroup.getId());
+      app.goTo().currentGroupPage(modifiedGroup);
     }
     app.contact().deleteFromGroup(contact);
     app.goTo().currentGroupPage(modifiedGroup);

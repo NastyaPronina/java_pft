@@ -32,7 +32,7 @@ public class ContactAdditionToGroup extends TestBase {
     GroupData group = groups.iterator().next();
     String name = group.getName();
     app.group().selectGroup(name);
-    if (app.contact().isThereAContact(contact.getId())){
+    if (app.db().isThereAContact(contact.getId(), group)) {
       app.contact().deleteContactInGroups(contact);
     }
     app.contact().addToGroup(group,contact);

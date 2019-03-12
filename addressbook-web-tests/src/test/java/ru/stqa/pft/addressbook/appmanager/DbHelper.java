@@ -41,4 +41,14 @@ public class DbHelper {
     session.close();
     return new Contacts(result);
   }
+
+  public Boolean isThereAContact (int contactId, GroupData group) {
+    Session session = sessionFactory.openSession();
+    session.beginTransaction();
+    List<ContactData> result = session.createQuery( "from ContactData where id = '" + contactId + "'").list();
+    Boolean finalResult = result.get(0).getGroups().contains(group);
+    session.getTransaction().commit();
+    session.close();
+    return finalResult;
+  }
 }
