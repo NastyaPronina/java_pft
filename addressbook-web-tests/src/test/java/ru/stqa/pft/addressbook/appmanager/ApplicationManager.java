@@ -3,6 +3,7 @@ package ru.stqa.pft.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.BrowserType;
 
@@ -36,7 +37,10 @@ public class ApplicationManager {
     dbHelper = new DbHelper();
 
     if (browser.equals(BrowserType.CHROME)) {
-      wd = new ChromeDriver();
+      ChromeOptions chromeOptions= new ChromeOptions();
+      chromeOptions.setBinary("C:\\Windows\\System32\\chrome.exe");
+      System.setProperty("webdriver.chrome.driver","C:\\Webdrivers\\2.46\\chromedriver.exe");
+      wd = new ChromeDriver(chromeOptions);
     } else if (browser.equals(BrowserType.FIREFOX)) {
       wd = new FirefoxDriver();
     }
