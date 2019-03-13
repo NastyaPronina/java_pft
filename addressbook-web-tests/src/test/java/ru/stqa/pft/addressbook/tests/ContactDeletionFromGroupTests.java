@@ -8,6 +8,8 @@ import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 
+import static org.testng.Assert.assertFalse;
+
 public class ContactDeletionFromGroupTests extends TestBase {
 
   @BeforeMethod
@@ -37,6 +39,6 @@ public class ContactDeletionFromGroupTests extends TestBase {
     }
     app.contact().deleteFromGroup(contact);
     app.goTo().currentGroupPage(modifiedGroup);
-    Assert.assertFalse(app.contact().isThereAContact(contact.getId()));
+    assertFalse(app.db().isThereAContact(contact.getId(), modifiedGroup));
     }
   }

@@ -37,6 +37,6 @@ public class ContactAdditionToGroup extends TestBase {
     }
     app.contact().addToGroup(group,contact);
     app.goTo().currentGroupPage(group);
-    assertTrue(app.contact().isThereAContact(contact.getId()));
+    assertTrue(app.db().isThereAContact(contact.getId(), group));
   }
 }
