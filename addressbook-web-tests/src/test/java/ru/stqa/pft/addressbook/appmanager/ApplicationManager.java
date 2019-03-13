@@ -37,10 +37,9 @@ public class ApplicationManager {
     dbHelper = new DbHelper();
 
     if (browser.equals(BrowserType.CHROME)) {
-      ChromeOptions chromeOptions= new ChromeOptions();
-      chromeOptions.setBinary("C:\\Windows\\System32\\chrome.exe");
-      System.setProperty("webdriver.chrome.driver","C:\\Webdrivers\\2.46\\chromedriver.exe");
-      wd = new ChromeDriver(chromeOptions);
+      ChromeOptions options = new ChromeOptions();
+      options.addArguments("--disable-dev-shm-usage");
+      wd = new ChromeDriver(options);
     } else if (browser.equals(BrowserType.FIREFOX)) {
       wd = new FirefoxDriver();
     }
