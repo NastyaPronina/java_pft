@@ -38,7 +38,7 @@ public class ApplicationManager {
 
     if (browser.equals(BrowserType.CHROME)) {
       ChromeOptions options = new ChromeOptions();
-      options.setBinary("C:\\Windows\\System32\\chromedriver.exe");
+      options.setBinary("C:\\Users\\WWW\\AppData\\Local\\Google\\Chrome\\Application\\chrome.exe");
       wd = new ChromeDriver(options);
     } else if (browser.equals(BrowserType.FIREFOX)) {
       wd = new FirefoxDriver();
