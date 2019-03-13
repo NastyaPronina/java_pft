@@ -1,15 +1,19 @@
 package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.BrowserType;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
@@ -25,7 +29,7 @@ public class ApplicationManager {
   private String browser;
   private DbHelper dbHelper;
 
-  public ApplicationManager(String browser){
+  public ApplicationManager(String browser) {
     this.browser = browser;
     properties = new Properties();
   }
@@ -36,12 +40,16 @@ public class ApplicationManager {
 
     dbHelper = new DbHelper();
 
-    if (browser.equals(BrowserType.CHROME)) {
-      ChromeOptions options = new ChromeOptions();
-      options.setBinary("C:\\Users\\WWW\\AppData\\Local\\Google\\Chrome\\Application\\chrome.exe");
-      wd = new ChromeDriver(options);
-    } else if (browser.equals(BrowserType.FIREFOX)) {
-      wd = new FirefoxDriver();
+    if ("".equals(properties.getProperty("selenium.server"))) {
+      if (browser.equals(BrowserType.CHROME)) {
+        wd = new ChromeDriver();
+      } else if (browser.equals(BrowserType.FIREFOX)) {
+        wd = new FirefoxDriver();
+      }
+    } else {
+      DesiredCapabilities capabilities = new DesiredCapabilities();
+      capabilities.setBrowserName(browser);
+      wd = new RemoteWebDriver(new URL(properties.getProperty("selenium.server")), capabilities);
     }
 
     wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
@@ -58,17 +66,23 @@ public class ApplicationManager {
     wd.quit();
   }
 
-  public DbHelper db() {return dbHelper; }
+  public DbHelper db() {
+    return dbHelper;
+  }
 
   public void logout() {
     wd.findElement(By.linkText("Logout")).click();
   }
 
-  public GroupHelper group() { return groupHelper; }
+  public GroupHelper group() {
+    return groupHelper;
+  }
 
-  public NavigationHelper goTo () {
+  public NavigationHelper goTo() {
     return navigationHelper;
   }
 
-  public ContactHelper contact() { return contactHelper; }
+  public ContactHelper contact() {
+    return contactHelper;
+  }
 }
